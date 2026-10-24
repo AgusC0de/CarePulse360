@@ -1,3 +1,15 @@
 <Solution>
-  <Project Path="CarePulse360/CarePulse360.csproj" />
+  <Folder Name="/API/">
+    <Project Path="CarePulse360.Api/CarePulse360.Api.csproj" Id="2bf372ad-3dad-4cfe-bb7f-5190939f7179" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="CarePulse360.Application/CarePulse360.Application.csproj" Id="71c2bbd0-0613-4a2f-a42e-07bc3a9f3258" />
+    <Project Path="CarePulse360.Domain/CarePulse360.Domain.csproj" Id="f394044c-75af-4909-a64d-7b967c7a65a1" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="CarePulse360.Infrastructure/CarePulse360.Infrastructure.csproj" Id="dc162425-3df1-437c-b5a8-7acf1ff348da" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="CarePulse360.Tests/CarePulse360.Tests.csproj" Id="2d0d4962-dff2-4d25-8852-425122a428fc" />
+  </Folder>
 </Solution>
