@@ -1,5 +1,4 @@
-﻿
-using CarePulse360.Domain.Exceptions;
+﻿using CarePulse360.Domain.Exceptions;
 using CarePulse360.Domain.ValueObjects;
 
 namespace CarePulse360.Domain.Entities;
