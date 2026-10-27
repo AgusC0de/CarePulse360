@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CarePulse360.Domain.Common;
 
-namespace CarePulse360.Domain.Events.Appointment
+namespace CarePulse360.Domain.Events.Appointment;
+
+public class AppointmentRequestedEvent : IDomainEvent
 {
-    internal class AppoimentRequestedEvent
-    {
-    }
+    public DateTime OccurredOn { get; }
 }
