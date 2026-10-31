@@ -9,6 +9,7 @@ public class Doctor
     public string FirstName { get; private set; } = null!;
     public string LastName1 { get; private set; } = null!;
     public string? LastName2 { get; private set; } = null!;
+    public Email Email { get; private set; } = null!;
 
     public Doctor(string firstName, string lastName1, string? lastName2, Email email)
     {
@@ -18,6 +19,7 @@ public class Doctor
         FirstName = firstName;
         LastName1 = lastName1;
         LastName2 = lastName2;
+        Email = email;
     }
 
     public void UpdateFirstName(string firstName)
@@ -35,6 +37,12 @@ public class Doctor
     public void UpdateLastName2(string lastName2)
     {
         LastName2 = lastName2;
+    }
+
+    public void UpdateEmail(Email email)
+    {
+        EnforceBusinessRulesEmail(email);
+        Email = email;
     }
 
     private void EnforceBusinessRulesFirstName(string firstName)

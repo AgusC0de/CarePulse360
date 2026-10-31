@@ -48,6 +48,12 @@ public class Patient
         LastName2 = lastName2;
     }
 
+    public void UpdateEmail(Email email)
+    {
+        EnforceBusinessRulesEmail(email);
+        Email = email;
+    }
+
     private void EnforceBusinessRulesFirstName(string firstName)
     {
         if (string.IsNullOrWhiteSpace(firstName))
