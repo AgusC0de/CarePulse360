@@ -1,4 +1,5 @@
 ﻿using CarePulse360.Domain.Entities;
+using CarePulse360.Domain.Enumerators;
 using CarePulse360.Domain.Exceptions;
 using CarePulse360.Domain.ValueObjects;
 
@@ -29,5 +30,82 @@ public class AppointmentTests
         Assert.Equal(IdPatient, appointment.IdPatient);
         Assert.Equal(IdDoctor, appointment.IdDoctor);
         Assert.Equal(IdConsultingRoom, appointment.IdConsultingRoom);
+        Assert.Equal(AppointmentStatus.Requested, appointment.Status);
+    }
+
+    [Fact]
+    public void Appointment_CantCancelTwice_ThrowsBusinessRuleException()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+
+        appointment.Cancel();
+
+        var exception = Assert.Throws<BusinessRuleException>(() => appointment.Cancel());
+
+        Assert.Equal("Only requested or confirmed appointments can be cancelled.", exception.Message);
+    }
+
+    [Fact]
+    public void Appointment_CantCancelCompleted_ThrowsBusinessRuleException()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+        appointment.Confirm();
+        appointment.Complete();
+        
+        var exception = Assert.Throws<BusinessRuleException>(() => appointment.Cancel());
+
+        Assert.Equal("Only requested or confirmed appointments can be cancelled.", exception.Message);
+    }
+
+    [Fact]
+    public void Appointment_CantConfirmedTwice_ThrowsBusinessRuleException()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+        appointment.Confirm();
+
+        var exception = Assert.Throws<BusinessRuleException>(() => appointment.Confirm());
+
+        Assert.Equal("Only requested appointments can be confirmed.", exception.Message);
+    }
+
+    [Fact]
+    public void AppointmentRequested_CantCancelCompleted_ThrowsBusinessRuleException()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+        
+        var exception = Assert.Throws<BusinessRuleException>(() => appointment.Complete());
+
+        Assert.Equal("Only confirmed appointments can be completed.", exception.Message);
+    }
+
+    [Fact]
+    public void Appointment_Cancel()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+
+        appointment.Cancel();
+
+        Assert.Equal(AppointmentStatus.Cancelled, appointment.Status);
+    }
+
+    [Fact]
+    public void Appointment_Confirm()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+
+        appointment.Confirm();
+
+        Assert.Equal(AppointmentStatus.Confirmed, appointment.Status);
+    }
+
+    [Fact]
+    public void Appointment_Complete()
+    {
+        var appointment = new Appointment(IdPatient, IdDoctor, IdConsultingRoom, medicalSlot);
+
+        appointment.Confirm();
+        appointment.Complete();
+
+        Assert.Equal(AppointmentStatus.Completed, appointment.Status);
     }
 }
