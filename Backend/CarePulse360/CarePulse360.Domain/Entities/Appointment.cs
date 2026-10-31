@@ -33,17 +33,23 @@ public class Appointment
     {
         if (Status is not (AppointmentStatus.Requested or AppointmentStatus.Confirmed))
             throw new BusinessRuleException("Only requested or confirmed appointments can be cancelled.");
+
+        Status = AppointmentStatus.Cancelled;
     }
 
     public void Confirm()
     {
         if (Status != AppointmentStatus.Requested)
             throw new BusinessRuleException("Only requested appointments can be confirmed.");
+
+        Status = AppointmentStatus.Confirmed;
     }
 
     public void Complete()
     {
         if (Status != AppointmentStatus.Confirmed)
             throw new BusinessRuleException("Only confirmed appointments can be completed.");
+
+        Status = AppointmentStatus.Completed;
     }        
 }
