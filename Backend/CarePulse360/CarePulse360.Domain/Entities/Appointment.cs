@@ -31,7 +31,7 @@ public class Appointment
 
     public void Cancel()
     {
-        if (Status != AppointmentStatus.Requested && Status != AppointmentStatus.Confirmed)
+        if (Status is not (AppointmentStatus.Requested or AppointmentStatus.Confirmed))
             throw new BusinessRuleException("Only requested or confirmed appointments can be cancelled.");
     }
 
